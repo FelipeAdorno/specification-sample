@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 /**
  * PersonRestService
  *
@@ -23,12 +25,10 @@ public class PersonRestService {
     private PersonService personService;
 
     @GetMapping
-    public Page<Person> list(@RequestParam(required = false) String name,
-                             @RequestParam(required = false) Integer cpf,
-                             @RequestParam(required = false) Integer phone,
+    public Page<Person> list(@RequestParam(required = false) Map<String, String> filters,
                              @RequestParam(defaultValue = "0") Integer page,
                              @RequestParam(defaultValue = "10") Integer size) {
-        return personService.list(name, cpf, phone, new PageRequest(page, size));
+        return personService.list(filters, new PageRequest(page, size));
     }
 
 }
